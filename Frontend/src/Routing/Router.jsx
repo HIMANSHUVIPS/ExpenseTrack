@@ -7,6 +7,8 @@ import Register from "../Auth/Register";
 import MainAuth from "../Auth/MainAuth";
 import HomePage from "../components/Home/HomePage";
 import AddExpense from "../components/Features/AddExpense/AddExpense";
+import AddIncome from "../components/Features/AddIncome/AddIncome";
+import Report from "../components/Features/Report/Report";
 const router = createBrowserRouter([
   // This is the public routes
   {
@@ -26,7 +28,9 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
         { path: "home", element: <HomePage /> },
-        {path:"add-expense", element:<AddExpense/>}
+        {path:"add-expense", element:<AddExpense/>},
+        {path:"add-income" , element:<AddIncome/>},
+        {path:"report",element:<Report/>}
     ],
   },
 ]);

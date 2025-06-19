@@ -1,15 +1,22 @@
-import React from 'react';
-import styles from './Navbar.module.css';
+import React from "react";
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
-      <div className={styles.logo}>💰 Expense Tracker</div>
+      {/* <img className="logo_img" src="/rupee.png"/> */}
+      <div className={styles.logo}> Expense Tracker</div>
 
       <ul className={styles.navItems}>
-        <li className={styles.navItem}><a href="#">Dashboard</a></li>
-        <li className={styles.navItem}><a href="#">Add Expense</a></li>
-        <li className={styles.navItem}><a href="#">Reports</a></li>
+        <li className={styles.navItem}>
+          <a href="#">Dashboard</a>
+        </li>
+        <li className={styles.navItem}>
+          <a href="#">Add Expense</a>
+        </li>
+        <li className={styles.navItem}>
+          <a href="#">Reports</a>
+        </li>
       </ul>
 
       <div className={styles.userSection}>

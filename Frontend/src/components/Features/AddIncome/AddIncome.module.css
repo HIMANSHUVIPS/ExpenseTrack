@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+.container {
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  color: var(--text-dark);
+  background-color: var(--light);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2.5rem;
+  text-align: center;
+}
+
+.header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+}
+
+.header p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  font-weight: 400;
+}
+
+.formContainer {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.formGroup {
+  margin-bottom: 1.5rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-sm);
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--success);
+  box-shadow: 0 0 0 2px rgba(76, 201, 240, 0.2);
+}
+
+.amountInput {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.amountInput span {
+  padding: 0 1rem;
+  background-color: #f5f5f5;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+  color: var(--text-dark);
+}
+
+.amountInput input {
+  border: none;
+  flex: 1;
+  padding: 0.8rem 1rem;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8rem;
+}
+#placeholder::placeholder{
+    font-size: 0.8rem;
+}
+.categoryButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-sm);
+  background-color: white;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.categoryButton:hover {
+  border-color: var(--success);
+  transform: translateY(-2px);
+}
+
+.categoryIcon {
+  font-size: 1.5rem;
+  margin-bottom: 0.3rem;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.cancelButton {
+  flex: 1;
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--radius-sm);
+  background-color: white;
+  color: var(--text-dark);
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cancelButton:hover {
+  background-color: #f5f5f5;
+}
+
+.submitButton {
+  flex: 2;
+  padding: 0.8rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--success);
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.submitButton:hover {
+  background-color: #38b6db;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 201, 240, 0.2);
+}
+
+/* Use the same variables as in your HomePage.module.css */
+:root {
+  --primary: #4361ee;
+  --success: #4cc9f0;
+  --dark: #1a1a2e;
+  --light: #f8f9fa;
+  --text-dark: #2b2d42;
+  --text-light: #8d99ae;
+  --card-bg: #ffffff;
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --radius-sm: 8px;
+  --radius-lg: 16px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@media (max-width: 600px) {
+  .categoryGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .formContainer {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .buttonGroup {
+    flex-direction: column;
+  }
+  
+  .cancelButton,
+  .submitButton {
+    width: 100%;
+  }
+}

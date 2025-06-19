@@ -1,0 +1,241 @@
+/* Report.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #4361ee;
+  --primary-light: #4895ef;
+  --secondary: #3f37c9;
+  --accent: #f72585;
+  --dark: #1a1a2e;
+  --light: #f8f9fa;
+  --success: #4cc9f0;
+  --warning: #f8961e;
+  --danger: #ef233c;
+  --info: #560bad;
+  --text-dark: #2b2d42;
+  --text-light: #8d99ae;
+  --card-bg: #ffffff;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.container {
+  font-family: 'Manrope', sans-serif;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: var(--light);
+  color: var(--text-dark);
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.summaryCards {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.card {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  flex: 1;
+  min-width: 280px;
+  max-width: 350px;
+  display: flex;
+  align-items: center;
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.cardIcon {
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.incomeCard .cardIcon {
+  background-color: rgba(76, 201, 240, 0.1);
+  color: var(--success);
+}
+
+.expenseCard .cardIcon {
+  background-color: rgba(239, 35, 60, 0.1);
+  color: var(--danger);
+}
+
+.savingsCard .cardIcon {
+  background-color: rgba(67, 97, 238, 0.1);
+  color: var(--primary);
+}
+
+.card h4 {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.amount {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.incomeCard .amount {
+  color: var(--success);
+}
+
+.expenseCard .amount {
+  color: var(--danger);
+}
+
+.savingsCard .amount {
+  color: var(--primary);
+}
+
+.trend {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.incomeCard .trend {
+  color: var(--success);
+}
+
+.expenseCard .trend {
+  color: var(--danger);
+}
+
+.savingsCard .trend {
+  color: var(--primary);
+}
+
+.exportSection {
+  background-color: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 800px;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.exportSection:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.exportSection h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.exportSection p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.exportButtons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+  min-width: 180px;
+  justify-content: center;
+}
+
+.exportBtn:hover {
+  background-color: var(--secondary);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+}
+
+.btnIcon {
+  font-size: 1.2rem;
+  margin-right: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+  }
+  
+  .summaryCards {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .card {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  
+  .exportButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .exportBtn {
+    width: 100%;
+  }
+}
