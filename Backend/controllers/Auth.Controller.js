@@ -23,6 +23,7 @@ export const Signup = async (req, res) => {
     res.status(200).json({
         success:true,
         message: "User Created Successfully",
+        token,
         user:{...USER._doc,password:undefined}
     })
   } catch (error) {
@@ -58,6 +59,7 @@ export const Login = async (req,res) => {
         res.status(200).json({
             success:true,
             message:"User LogedIn successfully",
+            token,
             user:{...USER._doc,password:undefined}
         })
     } catch (error) {

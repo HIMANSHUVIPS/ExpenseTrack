@@ -3,11 +3,11 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const AutheticatedUser = () => {
+export const AutheticatedUser = (req,res,next) => {
   try {
-    const token = req.cookie.token;
+    const token = req.cookies.token;
     if (!token) {
-      return resizeBy.status(401).json({
+      return res.status(401).json({
         success: false,
         message: "You need to login to access this route",
       });

@@ -5,8 +5,8 @@ import { Validate } from '../middleware/validate.middleware.js';
 import { AutheticatedUser } from '../middleware/AuthenticatedUser.middleware.js';
 const router = express.Router();
 
-router.post('/signup',Validate(RegisterSchema),AutheticatedUser,Signup);
-router.post('/login',Validate(LoginSchema),AutheticatedUser,Login);
-router.post('/logout',Logout);
+router.post('/signup',Validate(RegisterSchema),Signup);
+router.post('/login',Validate(LoginSchema),Login);
+router.post('/logout',AutheticatedUser,Logout);
 
 export default router;
