@@ -32,15 +32,11 @@
   color: var(--text-dark);
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 2.5rem;
-  width: 100%;
+  margin-bottom: 2rem;
 }
 
 .title {
@@ -59,13 +55,71 @@
   font-weight: 400;
 }
 
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.timeFilters {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.timeFilter {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--primary-light);
+  background: transparent;
+  color: var(--primary);
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.timeFilter:hover {
+  background: rgba(72, 149, 239, 0.1);
+}
+
+.timeFilter.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.exportBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.exportBtn:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.exportIcon {
+  font-size: 1rem;
+}
+
 .summaryCards {
   display: flex;
   gap: 1.5rem;
   justify-content: center;
   margin-bottom: 3rem;
   flex-wrap: wrap;
-  width: 100%;
 }
 
 .card {
@@ -140,6 +194,9 @@
 .trend {
   font-size: 0.85rem;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .incomeCard .trend {
@@ -154,65 +211,171 @@
   color: var(--primary);
 }
 
-.exportSection {
+.transactionSection {
   background-color: var(--card-bg);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  width: 100%;
-  max-width: 800px;
-  transition: var(--transition);
-  text-align: center;
+  margin-bottom: 2rem;
 }
 
-.exportSection:hover {
-  box-shadow: var(--shadow-lg);
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.exportSection h3 {
-  font-size: 1.5rem;
+.sectionHeader h3 {
+  font-size: 1.3rem;
   font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: 0.5rem;
 }
 
-.exportSection p {
-  color: var(--text-light);
-  font-size: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.exportButtons {
+.tabs {
   display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.exportBtn {
-  display: flex;
-  align-items: center;
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.8rem 1.5rem;
+  gap: 0.5rem;
+  background: rgba(67, 97, 238, 0.1);
+  padding: 0.3rem;
   border-radius: var(--radius-sm);
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--primary);
+  border-radius: 6px;
   cursor: pointer;
   font-weight: 500;
   transition: var(--transition);
-  min-width: 180px;
-  justify-content: center;
 }
 
-.exportBtn:hover {
-  background-color: var(--secondary);
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+.tab:hover {
+  background: rgba(67, 97, 238, 0.2);
 }
 
-.btnIcon {
+.tab.active {
+  background: var(--primary);
+  color: white;
+}
+
+.transactionTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
+  padding: 0.8rem 1rem;
+  background: var(--light);
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+
+.tableBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
+  padding: 1rem;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  transition: var(--transition);
+}
+
+.tableRow:hover {
+  background: rgba(67, 97, 238, 0.05);
+}
+
+.cell {
+  font-size: 0.95rem;
+}
+
+.headerCell {
+  font-size: 0.9rem;
+}
+
+.categoryBadge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.incomeBadge {
+  background: rgba(76, 201, 240, 0.1);
+  color: var(--success);
+}
+
+.expenseBadge {
+  background: rgba(239, 35, 60, 0.1);
+  color: var(--danger);
+}
+
+.amountCell {
+  font-weight: 600;
+  text-align: right;
+}
+
+.incomeAmount {
+  color: var(--success);
+}
+
+.expenseAmount {
+  color: var(--danger);
+}
+
+.visualizationSection {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.visualizationCard {
+  background-color: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.visualizationCard h3 {
   font-size: 1.2rem;
-  margin-right: 0.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-dark);
+}
+
+.chartPlaceholder {
+  height: 250px;
+  background: var(--light);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-light);
+}
+
+.chartIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.chartPlaceholder p {
+  font-size: 0.9rem;
 }
 
 @media (max-width: 768px) {
@@ -230,12 +393,18 @@
     max-width: 100%;
   }
   
-  .exportButtons {
-    flex-direction: column;
-    align-items: center;
+  .visualizationSection {
+    grid-template-columns: 1fr;
   }
   
-  .exportBtn {
-    width: 100%;
+  .tableHeader, .tableRow {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  
+  .headerCell, .cell {
+    font-size: 0.8rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

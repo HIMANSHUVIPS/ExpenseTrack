@@ -6,9 +6,11 @@ import Login from "../Auth/Login";
 import Register from "../Auth/Register";
 import MainAuth from "../Auth/MainAuth";
 import HomePage from "../components/Home/HomePage";
-import AddExpense from "../components/Features/AddExpense/AddExpense";
+import AddExpense from "../components/Features/Expense/AddExpense/AddExpense";
 import AddIncome from "../components/Features/AddIncome/AddIncome";
 import Report from "../components/Features/Report/Report";
+import Protected from "../ProtectedRoute/Protected";
+import AllExpense from "../components/Features/Expense/AllExpense/AllExpense";
 const router = createBrowserRouter([
   // This is the public routes
   {
@@ -24,13 +26,19 @@ const router = createBrowserRouter([
   // These are protected routes
   {
     path: "/layout",
-    element: <AppLayout />,
+
+    element: (
+      <Protected>
+        <AppLayout />
+      </Protected>
+    ),
     errorElement: <ErrorPage />,
     children: [
-        { path: "home", element: <HomePage /> },
-        {path:"add-expense", element:<AddExpense/>},
-        {path:"add-income" , element:<AddIncome/>},
-        {path:"report",element:<Report/>}
+      { path: "home", element: <HomePage /> },
+      { path: "add-expense", element: <AddExpense /> },
+      { path: "all-expense", element: <AllExpense /> },
+      { path: "add-income", element: <AddIncome /> },
+      { path: "report", element: <Report /> },
     ],
   },
 ]);
