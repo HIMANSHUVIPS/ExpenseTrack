@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const AutheticatedUser = (req,res,next) => {
+export const AutheticatedUser = (req, res, next) => {
   try {
     const token = req.cookies.token;
     if (!token) {
@@ -12,20 +12,17 @@ export const AutheticatedUser = (req,res,next) => {
         message: "You need to login to access this route",
       });
     }
-    const decode = jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-      if (err) {
-        console.log("Token is invalid");
-      } else {
-        console.log("Decoded Token:", decoded);
-      }
-      req.user = decode;
-      next();
-    });
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+    console.log("Decoded Token:", decoded);
+
+    req.user = decoded; 
+    next();
   } catch (error) {
-    console.log("Error", error.message);
-    res.status(500).json({
+    console.log("Error:", error.message);
+    res.status(401).json({
       success: false,
-      message: "Authentication User Error",
+      message: "Invalid or expired token",
     });
   }
 };

@@ -3,6 +3,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 const app = express();
 import AuthRoutes from './router/auth.routes.js';
+import FormRoutes from './router/form.routes.js';
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -19,5 +20,5 @@ app.get('/',(req,res)=>{
 });
 
 app.use('/auth/expense',AuthRoutes);
-
+app.use('/form/expenzo',FormRoutes);
 export default app;
