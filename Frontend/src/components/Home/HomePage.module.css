@@ -37,7 +37,7 @@ body {
 .container {
   font-family: 'Poppins', sans-serif;
   padding: 2rem;
-  min-height: 100vh;
+  max-height: 100vh;
   color: var(--text-dark);
   background-color: var(--light);
   line-height: 1.6;
