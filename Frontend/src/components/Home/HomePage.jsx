@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './HomePage.module.css';
 import { PieChart } from 'react-minimal-pie-chart';
+import axios from 'axios';
 
 const HomePage = () => {
+  const backendURL = import.meta.env.VITE_BACKEND_URL;
   const userName = 'Himanshu';
 
   const pieData = [
@@ -49,9 +51,7 @@ const HomePage = () => {
               data={pieData}
               animate
               lineWidth={40}
-              label={({ dataEntry }) =>
-                `${Math.round(dataEntry.percentage)}%`
-              }
+              label={({ dataEntry }) => `${Math.round(dataEntry.percentage)}%`}
               labelStyle={{
                 fontSize: '6px',
                 fill: '#fff',

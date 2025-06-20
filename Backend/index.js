@@ -4,6 +4,7 @@ import cors from 'cors';
 const app = express();
 import AuthRoutes from './router/auth.routes.js';
 import FormRoutes from './router/form.routes.js';
+import DataRoutes from './router/data.routes.js';
 
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
@@ -21,4 +22,5 @@ app.get('/',(req,res)=>{
 
 app.use('/auth/expense',AuthRoutes);
 app.use('/form/expenzo',FormRoutes);
+app.use('/data',DataRoutes);
 export default app;
