@@ -1,141 +1,137 @@
-import React, { useState } from 'react';
-import styles from './Report.module.css';
-import { FiDownload, FiTrendingUp, FiTrendingDown, FiDollarSign, FiPieChart, FiFilter, FiPlus } from 'react-icons/fi';
+import React, { useContext, useRef, useState } from "react";
+import styles from "./Report.module.css";
+import { UserStore } from "../../../Store/Store";
+import { FiDownload, FiTrendingUp, FiTrendingDown } from "react-icons/fi";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 
 const Report = () => {
-  const userName = 'Himanshu';
-  const currentMonth = new Date().toLocaleString('default', { month: 'long' });
-  const [activeTab, setActiveTab] = useState('expenses');
-  const [timeFilter, setTimeFilter] = useState('month');
+  const { expenses = [], income = [] } = useContext(UserStore);
+  const [activeTab, setActiveTab] = useState("all");
 
-  // Sample data
-  const expenses = [
-    { id: 1, date: '2023-06-15', category: 'Food & Dining', description: 'Dinner with friends', amount: 85.50, type: 'expense' },
-    { id: 2, date: '2023-06-14', category: 'Transportation', description: 'Monthly metro pass', amount: 120.00, type: 'expense' },
-    { id: 3, date: '2023-06-12', category: 'Shopping', description: 'New headphones', amount: 199.99, type: 'expense' },
-    { id: 4, date: '2023-06-10', category: 'Utilities', description: 'Electricity bill', amount: 75.30, type: 'expense' },
-    { id: 5, date: '2023-06-05', category: 'Entertainment', description: 'Movie tickets', amount: 32.00, type: 'expense' }
-  ];
+  const totalIncome = income.reduce((sum, item) => sum + item.amount, 0);
+  const totalExpense = expenses.reduce((sum, item) => sum + item.amount, 0);
+  const netSavings = totalIncome - totalExpense;
 
-  const income = [
-    { id: 1, date: '2023-06-30', category: 'Salary', description: 'Monthly salary', amount: 4500.00, type: 'income' },
-    { id: 2, date: '2023-06-25', category: 'Freelance', description: 'Website project', amount: 1200.00, type: 'income' },
-    { id: 3, date: '2023-06-20', category: 'Investment', description: 'Dividends', amount: 350.50, type: 'income' },
-    { id: 4, date: '2023-06-10', category: 'Bonus', description: 'Performance bonus', amount: 500.00, type: 'income' },
-    { id: 5, date: '2023-06-05', category: 'Other', description: 'Gift from family', amount: 200.00, type: 'income' }
-  ];
+  const reportRef = useRef();
+  const handleDownloadPDF = async () => {
+    const element = reportRef.current;
 
-  const allTransactions = [...expenses, ...income].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true, 
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("Expenzo_Report.pdf");
+  };
+  const transactions = [
+    ...income.map((item) => ({ ...item, type: "income" })),
+    ...expenses.map((item) => ({ ...item, type: "expense" })),
+  ].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+  const filtered =
+    activeTab === "all"
+      ? transactions
+      : activeTab === "income"
+      ? transactions.filter((t) => t.type === "income")
+      : transactions.filter((t) => t.type === "expense");
+
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={reportRef}>
       <div className={styles.header}>
         <h1 className={styles.title}>Financial Insights</h1>
-        <p className={styles.subtitle}>{currentMonth}'s Report for {userName}</p>
+        <p className={styles.subtitle}>{currentMonth}'s Report</p>
       </div>
 
       <div className={styles.controls}>
-        <div className={styles.timeFilters}>
-          <button 
-            className={`${styles.timeFilter} ${timeFilter === 'week' ? styles.active : ''}`}
-            onClick={() => setTimeFilter('week')}
-          >
-            Week
-          </button>
-          <button 
-            className={`${styles.timeFilter} ${timeFilter === 'month' ? styles.active : ''}`}
-            onClick={() => setTimeFilter('month')}
-          >
-            Month
-          </button>
-          <button 
-            className={`${styles.timeFilter} ${timeFilter === 'year' ? styles.active : ''}`}
-            onClick={() => setTimeFilter('year')}
-          >
-            Year
-          </button>
-        </div>
-        <button className={styles.exportBtn}>
+        <button className={styles.exportBtn} onClick={handleDownloadPDF}>
           <FiDownload className={styles.exportIcon} />
           Export Report
         </button>
       </div>
 
       <div className={styles.summaryCards}>
-        <div className={`${styles.card} ${styles.incomeCard}`}>
-          <div className={styles.cardIcon}>💰</div>
-          <div>
-            <h4>Total Income</h4>
-            <p className={styles.amount}>$11,200</p>
-            <p className={styles.trend}><FiTrendingUp /> 12% from last month</p>
-          </div>
-        </div>
-        
-        <div className={`${styles.card} ${styles.expenseCard}`}>
-          <div className={styles.cardIcon}>💸</div>
-          <div>
-            <h4>Total Expense</h4>
-            <p className={styles.amount}>$5,800</p>
-            <p className={styles.trend}><FiTrendingDown /> 5% from last month</p>
-          </div>
-        </div>
-        
-        <div className={`${styles.card} ${styles.savingsCard}`}>
-          <div className={styles.cardIcon}>🏦</div>
-          <div>
-            <h4>Net Savings</h4>
-            <p className={styles.amount}>$5,400</p>
-            <p className={styles.trend}><FiTrendingUp /> 18% from last month</p>
-          </div>
-        </div>
+        <SummaryCard
+          icon="💰"
+          label="Total Income"
+          value={totalIncome}
+          trend="+12%"
+          type="up"
+        />
+        <SummaryCard
+          icon="💸"
+          label="Total Expense"
+          value={totalExpense}
+          trend="-5%"
+          type="down"
+        />
+        <SummaryCard
+          icon="🏦"
+          label="Net Savings"
+          value={netSavings}
+          trend="+18%"
+          type="up"
+        />
       </div>
 
       <div className={styles.transactionSection}>
         <div className={styles.sectionHeader}>
-          <h3>All Transactions</h3>
+          <h3>Transactions</h3>
           <div className={styles.tabs}>
-            <button 
-              className={`${styles.tab} ${activeTab === 'all' ? styles.active : ''}`}
-              onClick={() => setActiveTab('all')}
-            >
-              All
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'income' ? styles.active : ''}`}
-              onClick={() => setActiveTab('income')}
-            >
-              Income
-            </button>
-            <button 
-              className={`${styles.tab} ${activeTab === 'expenses' ? styles.active : ''}`}
-              onClick={() => setActiveTab('expenses')}
-            >
-              Expenses
-            </button>
+            {["all", "income", "expense"].map((tab) => (
+              <button
+                key={tab}
+                className={`${styles.tab} ${
+                  activeTab === tab ? styles.active : ""
+                }`}
+                onClick={() => setActiveTab(tab)}
+              >
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </button>
+            ))}
           </div>
         </div>
 
         <div className={styles.transactionTable}>
           <div className={styles.tableHeader}>
-            <span className={styles.headerCell}>Date</span>
-            <span className={styles.headerCell}>Category</span>
-            <span className={styles.headerCell}>Description</span>
-            <span className={styles.headerCell}>Amount</span>
+            <span>Date</span>
+            <span>Category</span>
+            <span>Description</span>
+            <span>Amount</span>
           </div>
-          
+
           <div className={styles.tableBody}>
-            {(activeTab === 'all' ? allTransactions : 
-              activeTab === 'income' ? income : expenses).map((transaction) => (
-              <div key={transaction.id} className={styles.tableRow}>
-                <span className={styles.cell}>{transaction.date}</span>
-                <span className={styles.cell}>
-                  <span className={`${styles.categoryBadge} ${transaction.type === 'income' ? styles.incomeBadge : styles.expenseBadge}`}>
-                    {transaction.category}
+            {filtered.map((item) => (
+              <div key={item._id} className={styles.tableRow}>
+                <span>{new Date(item.date).toLocaleDateString()}</span>
+                <span>
+                  <span
+                    className={`${styles.categoryBadge} ${
+                      item.type === "income"
+                        ? styles.incomeBadge
+                        : styles.expenseBadge
+                    }`}
+                  >
+                    {item.category}
                   </span>
                 </span>
-                <span className={styles.cell}>{transaction.description}</span>
-                <span className={`${styles.cell} ${styles.amountCell} ${transaction.type === 'income' ? styles.incomeAmount : styles.expenseAmount}`}>
-                  {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                <span>{item.description}</span>
+                <span
+                  className={`${styles.amountCell} ${
+                    item.type === "income"
+                      ? styles.incomeAmount
+                      : styles.expenseAmount
+                  }`}
+                >
+                  {item.type === "income" ? "+" : "-"}₹{item.amount.toFixed(2)}
                 </span>
               </div>
             ))}
@@ -145,5 +141,22 @@ const Report = () => {
     </div>
   );
 };
+
+const SummaryCard = ({ icon, label, value, trend, type }) => (
+  <div
+    className={`${styles.card} ${
+      type === "up" ? styles.incomeCard : styles.expenseCard
+    }`}
+  >
+    <div className={styles.cardIcon}>{icon}</div>
+    <div>
+      <h4>{label}</h4>
+      <p className={styles.amount}>₹{value.toFixed(2)}</p>
+      <p className={styles.trend}>
+        {type === "up" ? <FiTrendingUp /> : <FiTrendingDown />} {trend}
+      </p>
+    </div>
+  </div>
+);
 
 export default Report;

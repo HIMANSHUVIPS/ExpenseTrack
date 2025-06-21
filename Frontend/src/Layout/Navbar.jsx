@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
+import { UserStore } from "../Store/Store";
 
 const Navbar = () => {
+  const { userData } = useContext(UserStore);
   return (
     <nav className={styles.navbar}>
       {/* <img className="logo_img" src="/rupee.png"/> */}
-      <div className={styles.logo}> Expense Tracker</div>
+      <div className={styles.logo}>
+        <span className={styles.logoPrimary}>Ex</span>
+        <span className={styles.logoAccent}>pen</span>
+        <span className={styles.logoHighlight}>zo</span>
+      </div>
 
       <ul className={styles.navItems}>
         <li className={styles.navItem}>
@@ -24,10 +30,10 @@ const Navbar = () => {
       </ul>
 
       <div className={styles.userSection}>
-        <span className={styles.username}>Hi, User</span>
+        <span className={styles.username}>Hi, {userData.name}</span>
         <img
           className={styles.avatar}
-          src="https://i.pravatar.cc/300?img=3"
+          src="/office-man.png"
           alt="User Avatar"
         />
       </div>

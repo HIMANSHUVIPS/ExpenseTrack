@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import styles from "./HomePage.module.css";
 import { PieChart } from "react-minimal-pie-chart";
-import axios from "axios";
 import { UserStore } from "../../Store/Store";
 
 const HomePage = () => {
