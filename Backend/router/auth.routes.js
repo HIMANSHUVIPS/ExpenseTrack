@@ -3,7 +3,7 @@ import { Login, Logout, Signup } from "../controllers/Auth.Controller.js";
 import { LoginSchema, RegisterSchema } from "../validation/user.validation.js";
 import { Validate } from "../middleware/validate.middleware.js";
 import { AutheticatedUser } from "../middleware/AuthenticatedUser.middleware.js";
-import passport from "passport";
+
 const router = express.Router();
 
 
