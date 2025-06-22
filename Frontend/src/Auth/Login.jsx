@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./Login.module.css";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
-import {toast, Toaster} from 'react-hot-toast';
+import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -25,15 +25,15 @@ const Login = () => {
         `${backendURL}/auth/expense/login`,
         {
           email,
-          password
+          password,
         },
         { withCredentials: true }
       );
-      localStorage.setItem("token",response.data.token);
+      localStorage.setItem("token", response.data.token);
       toast.success(response.data.message);
-      setTimeout(()=>{
+      setTimeout(() => {
         navigate("/layout/home");
-      },1000);
+      }, 1000);
       setEmail(" ");
       setPassword(" ");
     } catch (error) {
@@ -42,7 +42,7 @@ const Login = () => {
   };
   return (
     <div className={styles.container}>
-      <Toaster/>
+      <Toaster />
       <div className={styles.card}>
         <h2 className={styles.title}>Welcome Back</h2>
 
@@ -70,7 +70,12 @@ const Login = () => {
           <span>or</span>
         </div>
 
-        <button className={styles.googleBtn}>
+        <button
+          className={styles.googleBtn}
+          onClick={() => {
+            window.location.href = `${backendURL}/auth/smarteats/google`;
+          }}
+        >
           <img src="/google.png" alt="Google" />
           Continue with Google
         </button>

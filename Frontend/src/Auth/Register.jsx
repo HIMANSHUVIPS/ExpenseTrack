@@ -76,7 +76,9 @@ const Register = () => {
           <span>or</span>
         </div>
 
-        <button className={styles.googleBtn}>
+        <button className={styles.googleBtn} onClick={()=>{
+          window.location.href=`${backendURL}/auth/smarteats/google`;
+        }}>
           <img src="/google.png" alt="Google" />
           Sign up with Google
         </button>

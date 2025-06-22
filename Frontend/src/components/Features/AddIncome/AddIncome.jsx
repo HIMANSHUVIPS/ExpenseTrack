@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import styles from './AddIncome.module.css';
-import axios from 'axios';
-import { toast, Toaster } from 'react-hot-toast';
+import React, { useState } from "react";
+import styles from "./AddIncome.module.css";
+import axios from "axios";
+import { toast, Toaster } from "react-hot-toast";
 
 const AddIncome = () => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
@@ -12,9 +12,9 @@ const AddIncome = () => {
   const [category, setCategory] = useState("");
 
   const incomeCategories = [
-    { id: 1, name: 'Salary', icon: '💰' },
-    { id: 2, name: 'Freelance', icon: '💼' },
-    { id: 3, name: 'Donation', icon: '🎁' }
+    { id: 1, name: "Salary", icon: "💰" },
+    { id: 2, name: "Freelance", icon: "💼" },
+    { id: 3, name: "Donation", icon: "🎁" },
   ];
 
   const handleSubmit = async (e) => {
@@ -25,9 +25,9 @@ const AddIncome = () => {
         { amount, description, category, date },
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          withCredentials: true
+          withCredentials: true,
         }
       );
       toast.success(res.data.message || "Income added!");
@@ -83,8 +83,12 @@ const AddIncome = () => {
               <button
                 type="button"
                 key={cat.id}
-                onClick={() => setCategory(cat.name)}
+                onClick={() => {
+                  setCategory(cat.name);
+                  setIsClicked(true);
+                }}
                 className={`${styles.categoryButton} ${category === cat.name ? styles.selected : ""}`}
+
               >
                 <span className={styles.categoryIcon}>{cat.icon}</span>
                 <span>{cat.name}</span>
@@ -105,7 +109,11 @@ const AddIncome = () => {
         </div>
 
         <div className={styles.buttonGroup}>
-          <button type="button" className={styles.cancelButton} onClick={() => window.history.back()}>
+          <button
+            type="button"
+            className={styles.cancelButton}
+            onClick={() => window.history.back()}
+          >
             Cancel
           </button>
           <button type="submit" className={styles.submitButton}>

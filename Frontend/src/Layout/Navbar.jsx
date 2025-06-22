@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import styles from "./Navbar.module.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserStore } from "../Store/Store";
 
 const Navbar = () => {
   const { userData } = useContext(UserStore);
+  const navigate = useNavigate();
   return (
     <nav className={styles.navbar}>
       {/* <img className="logo_img" src="/rupee.png"/> */}
@@ -30,12 +31,19 @@ const Navbar = () => {
       </ul>
 
       <div className={styles.userSection}>
-        <span className={styles.username}>Hi, {userData.name}</span>
+        {userData.name?(
+          <>
+          <span className={styles.username}>Hi, {userData.name}</span>
         <img
           className={styles.avatar}
           src="/office-man.png"
           alt="User Avatar"
         />
+          </>
+        ):<span className={`${styles.username} ${styles.loguser}`} onClick={()=>{
+          navigate('/');
+        }}>Login</span>}
+        
       </div>
     </nav>
   );

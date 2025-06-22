@@ -78,7 +78,9 @@
   color: white;
   font-weight: 600;
 }
-
+.loguser{
+  cursor: pointer;
+}
 .userSection {
   display: flex;
   align-items: center;

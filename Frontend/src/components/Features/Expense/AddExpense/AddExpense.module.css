@@ -107,9 +107,9 @@
   transition: var(--transition);
 }
 
-.categoryButton:hover {
-  border-color: var(--primary);
-  transform: translateY(-2px);
+.selected {
+  border: 2px solid darkred;
+  /* background-color: #ffecec; */
 }
 
 .categoryButton span:first-child {
