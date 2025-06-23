@@ -75,7 +75,7 @@ const Register = () => {
         <div className={styles.divider}>
           <span>or</span>
         </div>
-        <button
+        {/* <button
           className={styles.googleBtn}
           onClick={() => {
             window.location.href = `${backendURL}/auth/smarteats/google`;
@@ -83,7 +83,7 @@ const Register = () => {
         >
           <img src="/google.png" alt="Google" />
           Sign up with Google
-        </button>
+        </button> */}
         <p className={styles.loginText}>
           Already have an account? <NavLink to="/login">Login here</NavLink>
         </p>

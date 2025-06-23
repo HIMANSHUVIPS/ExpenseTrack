@@ -70,15 +70,15 @@ const Login = () => {
           <span>or</span>
         </div>
 
-        <button
+        {/* <button
           className={styles.googleBtn}
           onClick={() => {
             window.location.href = `${backendURL}/auth/smarteats/google`;
           }}
-        >
-          <img src="/google.png" alt="Google" />
+        > */}
+          {/* <img src="/google.png" alt="Google" />
           Continue with Google
-        </button>
+        </button> */}
 
         <p className={styles.signupText}>
           Don't have an account? <NavLink to="/register">Register here</NavLink>
