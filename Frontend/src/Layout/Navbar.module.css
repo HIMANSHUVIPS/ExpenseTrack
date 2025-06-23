@@ -104,3 +104,18 @@
   border: 2px solid var(--accent);
   box-shadow: 0 0 0 2px var(--primary-light);
 }
+.logoutBtn {
+  background-color: #ef4444;
+  border: none;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 9999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.logoutBtn:hover {
+  background-color: #dc2626;
+}

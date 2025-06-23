@@ -6,9 +6,18 @@ import { UserStore } from "../Store/Store";
 const Navbar = () => {
   const { userData } = useContext(UserStore);
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear both cookie and localStorage token
+    localStorage.removeItem("token");
+    document.cookie = "token=; Max-Age=0; path=/;"; // clear cookie
+
+    // Navigate to login
+    navigate("/login");
+  };
+
   return (
     <nav className={styles.navbar}>
-      {/* <img className="logo_img" src="/rupee.png"/> */}
       <div className={styles.logo}>
         <span className={styles.logoPrimary}>Ex</span>
         <span className={styles.logoAccent}>pen</span>
@@ -23,7 +32,7 @@ const Navbar = () => {
           <NavLink to="/layout/add-expense">Add Expense</NavLink>
         </li>
         <li className={styles.navItem}>
-          <NavLink to="/layout/add-income">Add Income </NavLink>
+          <NavLink to="/layout/add-income">Add Income</NavLink>
         </li>
         <li className={styles.navItem}>
           <NavLink to="/layout/report">Report</NavLink>
@@ -31,19 +40,28 @@ const Navbar = () => {
       </ul>
 
       <div className={styles.userSection}>
-        {userData.name?(
+        {userData.name ? (
           <>
-          <span className={styles.username}>Hi, {userData.name}</span>
-        <img
-          className={styles.avatar}
-          src="/office-man.png"
-          alt="User Avatar"
-        />
+            <span className={styles.username}>Hi, {userData.name}</span>
+            <img
+              className={styles.avatar}
+              src="/office-man.png"
+              alt="User Avatar"
+            />
+            <button className={styles.logoutBtn} onClick={handleLogout}>
+              Logout
+            </button>
           </>
-        ):<span className={`${styles.username} ${styles.loguser}`} onClick={()=>{
-          navigate('/');
-        }}>Login</span>}
-        
+        ) : (
+          <span
+            className={`${styles.username} ${styles.loguser}`}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Login
+          </span>
+        )}
       </div>
     </nav>
   );
