@@ -14,12 +14,24 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(passport.initialize());
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://expenzo-frontend-six.vercel.app"
+];
+
 app.use(
   cors({
-    origin: "https://expenzo-frontend-six.vercel.app/",
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   })
 );
+
 
 app.get('/',(req,res)=>{
     res.send("This is the sample route");
