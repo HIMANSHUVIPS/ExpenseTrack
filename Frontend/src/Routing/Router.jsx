@@ -30,9 +30,9 @@ const router = createBrowserRouter([
 
     element: (
       <UserStoreProvider>
-      <Protected>
+      {/* <Protected> */}
         <AppLayout />
-      </Protected>
+      {/* </Protected> */}
       </UserStoreProvider>
     ),
     errorElement: <ErrorPage />,
