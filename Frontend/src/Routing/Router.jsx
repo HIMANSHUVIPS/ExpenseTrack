@@ -11,6 +11,7 @@ import AddIncome from "../components/Features/AddIncome/AddIncome";
 import Report from "../components/Features/Report/Report";
 import Protected from "../ProtectedRoute/Protected";
 import AllExpense from "../components/Features/Expense/AllExpense/AllExpense";
+import UserStoreProvider from "../Store/Store";
 const router = createBrowserRouter([
   // This is the public routes
   {
@@ -28,9 +29,11 @@ const router = createBrowserRouter([
     path: "/layout",
 
     element: (
+      <UserStoreProvider>
       <Protected>
         <AppLayout />
       </Protected>
+      </UserStoreProvider>
     ),
     errorElement: <ErrorPage />,
     children: [

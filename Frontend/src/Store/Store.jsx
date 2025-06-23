@@ -67,7 +67,11 @@ const UserStoreProvider = ({ children }) => {
       }
     }
   };
-
+useEffect(() => {
+  handleGetUserData();
+  handleFetchExpense();
+  handleFetchIncome();
+}, []);
   const triggerRefresh = () => {
     setRefreshUser((prev) => !prev);
   };
