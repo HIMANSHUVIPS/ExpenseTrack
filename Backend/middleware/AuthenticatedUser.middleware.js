@@ -1,11 +1,9 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-dotenv.config();
-
 export const AutheticatedUser = (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token =
+      req.cookies.token ||
+      req.header("Authorization")?.replace("Bearer ", "");
+
     if (!token) {
       return res.status(401).json({
         success: false,
@@ -13,10 +11,9 @@ export const AutheticatedUser = (req, res, next) => {
       });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET); 
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     console.log("Decoded Token:", decoded);
-
-    req.user = decoded; 
+    req.user = decoded;
     next();
   } catch (error) {
     console.log("Error:", error.message);
