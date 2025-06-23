@@ -44,6 +44,9 @@ const Navbar = () => {
         <li className={styles.navItem}>
           <NavLink to="/layout/report" onClick={() => setMobileMenuOpen(false)}>Report</NavLink>
         </li>
+        <li className={styles.navItem}>
+          <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
+        </li>
       </ul>
 
       <div className={styles.userSection}>
