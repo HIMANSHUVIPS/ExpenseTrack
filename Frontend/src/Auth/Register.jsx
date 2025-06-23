@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { toast, Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+
 const Register = () => {
   const backendURL = import.meta.env.VITE_BACKEND_URL;
   const [name, setName] = useState("");
@@ -22,29 +23,29 @@ const Register = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await axios.post(
-      `${backendURL}/auth/expense/signup`,
-      {
-        name,
-        email,
-        password,
-      },
-      { withCredentials: true }
-    );
-    setTimeout(() => {
-      navigate("/layout/home");
-    }, 1000);
-    setName("");
-    setEmail("");
-    setPassword("");
-    toast.success(response.data.message || "Signup successful!");
+    try {
+      const response = await axios.post(
+        `${backendURL}/auth/expense/signup`,
+        { name, email, password },
+        { withCredentials: true }
+      );
+      localStorage.setItem("token", response.data.token); // Store token
+      toast.success(response.data.message || "Signup successful!");
+      setTimeout(() => {
+        navigate("/layout/home");
+      }, 1000);
+      setName("");
+      setEmail("");
+      setPassword("");
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Signup failed");
+    }
   };
   return (
     <div className={styles.container}>
       <Toaster />
       <div className={styles.card}>
         <h2 className={styles.title}>Create Account</h2>
-
         <form className={styles.form} onSubmit={handleSubmit}>
           <input
             type="text"
@@ -71,18 +72,18 @@ const Register = () => {
             Register
           </button>
         </form>
-
         <div className={styles.divider}>
           <span>or</span>
         </div>
-
-        <button className={styles.googleBtn} onClick={()=>{
-          window.location.href=`${backendURL}/auth/smarteats/google`;
-        }}>
+        <button
+          className={styles.googleBtn}
+          onClick={() => {
+            window.location.href = `${backendURL}/auth/smarteats/google`;
+          }}
+        >
           <img src="/google.png" alt="Google" />
           Sign up with Google
         </button>
-
         <p className={styles.loginText}>
           Already have an account? <NavLink to="/login">Login here</NavLink>
         </p>

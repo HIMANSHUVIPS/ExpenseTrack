@@ -1,20 +1,22 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const UserStore = createContext({
   handleGetUserData: () => {},
   handleFetchExpense: () => {},
   handleFetchIncome: () => {},
-  triggerRefresh:false
+  triggerRefresh: false
 });
 
 const UserStoreProvider = ({ children }) => {
+  const navigate = useNavigate();
   const urlApi = import.meta.env.VITE_BACKEND_URL;
   const [userData, setUserData] = useState("");
   const [expenses, setExpenses] = useState([]);
   const [income, setIncome] = useState([]);
   const [refreshUser, setRefreshUser] = useState(false);
-  // fetch user profile data
+
   const handleGetUserData = async () => {
     try {
       const response = await axios.get(`${urlApi}/data/user-profile-data`, {
@@ -23,10 +25,15 @@ const UserStoreProvider = ({ children }) => {
       });
       setUserData(response.data);
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      } else {
+        console.log(error);
+      }
     }
   };
-  // fetching expense data
+
   const handleFetchExpense = async () => {
     try {
       const response = await axios.get(`${urlApi}/data/user-expenses`, {
@@ -35,10 +42,15 @@ const UserStoreProvider = ({ children }) => {
       });
       setExpenses(response.data.expenses);
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      } else {
+        console.log(error);
+      }
     }
   };
-  // fetching income data
+
   const handleFetchIncome = async () => {
     try {
       const response = await axios.get(`${urlApi}/data/user-incomes`, {
@@ -47,10 +59,15 @@ const UserStoreProvider = ({ children }) => {
       });
       setIncome(response.data.incomes);
     } catch (error) {
-      console.log(error);
+      if (error.response?.status === 401) {
+        localStorage.removeItem("token");
+        navigate("/login");
+      } else {
+        console.log(error);
+      }
     }
   };
-  // trigger refresh the page when ever the data chnages
+
   const triggerRefresh = () => {
     setRefreshUser((prev) => !prev);
   };
