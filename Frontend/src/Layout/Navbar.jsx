@@ -1,19 +1,22 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./Navbar.module.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { UserStore } from "../Store/Store";
+import { Menu, X } from "lucide-react"; 
 
 const Navbar = () => {
   const { userData } = useContext(UserStore);
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
-    // Clear both cookie and localStorage token
     localStorage.removeItem("token");
-    document.cookie = "token=; Max-Age=0; path=/;"; // clear cookie
-
-    // Navigate to login
+    document.cookie = "token=; Max-Age=0; path=/;";
     navigate("/login");
+  };
+
+  const toggleMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   return (
@@ -24,18 +27,22 @@ const Navbar = () => {
         <span className={styles.logoHighlight}>zo</span>
       </div>
 
-      <ul className={styles.navItems}>
+      <div className={styles.hamburger} onClick={toggleMenu}>
+        {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+      </div>
+
+      <ul className={`${styles.navItems} ${mobileMenuOpen ? styles.showMenu : ""}`}>
         <li className={styles.navItem}>
-          <NavLink to="/layout/home">DashBoard</NavLink>
+          <NavLink to="/layout/home" onClick={() => setMobileMenuOpen(false)}>DashBoard</NavLink>
         </li>
         <li className={styles.navItem}>
-          <NavLink to="/layout/add-expense">Add Expense</NavLink>
+          <NavLink to="/layout/add-expense" onClick={() => setMobileMenuOpen(false)}>Add Expense</NavLink>
         </li>
         <li className={styles.navItem}>
-          <NavLink to="/layout/add-income">Add Income</NavLink>
+          <NavLink to="/layout/add-income" onClick={() => setMobileMenuOpen(false)}>Add Income</NavLink>
         </li>
         <li className={styles.navItem}>
-          <NavLink to="/layout/report">Report</NavLink>
+          <NavLink to="/layout/report" onClick={() => setMobileMenuOpen(false)}>Report</NavLink>
         </li>
       </ul>
 
@@ -43,24 +50,11 @@ const Navbar = () => {
         {userData.name ? (
           <>
             <span className={styles.username}>Hi, {userData.name}</span>
-            <img
-              className={styles.avatar}
-              src="/office-man.png"
-              alt="User Avatar"
-            />
-            <button className={styles.logoutBtn} onClick={handleLogout}>
-              Logout
-            </button>
+            <img className={styles.avatar} src="/office-man.png" alt="User Avatar" />
+            <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <span
-            className={`${styles.username} ${styles.loguser}`}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login
-          </span>
+          <span className={`${styles.username} ${styles.loguser}`} onClick={() => navigate("/")}>Login</span>
         )}
       </div>
     </nav>

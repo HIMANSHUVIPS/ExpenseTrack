@@ -119,3 +119,40 @@
 .logoutBtn:hover {
   background-color: #dc2626;
 }
+.hamburger {
+  display: none;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .navItems {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-light);
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    display: none;
+  }
+
+  .showMenu {
+    display: flex;
+  }
+
+  .userSection {
+    display: none;
+  }
+
+  .navbar {
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+  }
+}
