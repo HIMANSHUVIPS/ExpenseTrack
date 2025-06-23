@@ -17,6 +17,7 @@ export const Signup = async (req, res) => {
       name,
       email,
       password: hash,
+      isOauth: false,
     });
     const token = JWT_TOKEN(USER);
     res.cookie("token", token, {
