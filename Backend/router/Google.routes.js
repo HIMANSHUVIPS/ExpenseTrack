@@ -23,7 +23,6 @@ router.get(
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
-      res.redirect(`${process.env.CLIENT_URL}/google-success?token=${token}`);
     res.redirect(`${process.env.CLIENT_URL}/layout/home`);
   }
 );
