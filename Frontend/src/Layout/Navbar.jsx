@@ -54,7 +54,7 @@ const Navbar = () => {
           <>
             <span className={styles.username}>Hi, {userData.name}</span>
             <img className={styles.avatar} src="/office-man.png" alt="User Avatar" />
-            <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
+            {/* <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button> */}
           </>
         ) : (
           <span className={`${styles.username} ${styles.loguser}`} onClick={() => navigate("/")}>Login</span>
