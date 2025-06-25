@@ -38,8 +38,16 @@ const Register = () => {
       setEmail("");
       setPassword("");
     } catch (error) {
-      toast.error(error.response?.data?.message || "Signup failed");
+    const errData = error.response?.data;
+    
+    if (errData?.error && Array.isArray(errData.error)) {
+      // Show all Joi validation errors
+      errData.error.forEach((msg) => toast.error(msg));
+    } else {
+      // Fallback for other errors
+      toast.error(errData?.message || "Signup failed");
     }
+  }
   };
   return (
     <div className={styles.container}>

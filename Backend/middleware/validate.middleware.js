@@ -4,9 +4,8 @@ export const Validate = (schema) => (req,res,next) => {
     {
         return res.status(404).json({
             success:false,
-            error: error.details.map((err) => ({
-                message:err.message
-            })),
+            message:"Validation Error",
+            error: error.details.map((err) => err.message),
         })
     }
     req.validate=value;
